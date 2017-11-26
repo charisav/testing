@@ -1,8 +1,10 @@
 package com.example.demo.resource;
 
+import com.example.demo.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +15,10 @@ import com.example.demo.model.repository.UserRepository;
 @Controller
 public class UserController {
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
+
+	@Autowired
+	private UserValidator userValidator;
 
 	@GetMapping("/register")
 	public String register(Model model) {
@@ -23,10 +28,16 @@ public class UserController {
 	}
 	
 	@PostMapping("/register")
-	public String register(@ModelAttribute("user") User user) {
-		if (userRepository.findByUsername(user.getUsername()) == null) {
-			userRepository.save(user);
+	public String register(@ModelAttribute("user") User user, BindingResult bindingResult,Model model) {
+
+		userValidator.validate(user, bindingResult);
+
+		if (bindingResult.hasErrors()) {
+			return "register";
 		}
+		userRepository.save(user);
+
+
 		return "redirect:/home";
 	}
 }
