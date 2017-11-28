@@ -1,10 +1,15 @@
 package com.example.demo.model;
 
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+@Entity
+@Table(name = "customers")
 public class Customer {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private Date activeFrom;
@@ -13,6 +18,17 @@ public class Customer {
     private Date createdOn;
     //FK
     private User createdByUser;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<User> users = new HashSet<User>();
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 
     public Long getId() {
         return id;
