@@ -1,24 +1,47 @@
 package com.example.demo.model;
 
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+@Entity
+@Table(name = "users")
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private Long id;
-    //FK
-    private Customer customerId;
+
+    @ManyToOne
+    @JoinColumn (name = "customer_id" , nullable = false)
+    private Customer customer;
+
     private String username;
     private String name;
     private String password;
-    //FK
+
+    @OneToOne
+    @JoinColumn(name = "user_type_id", nullable = false)
     private User userType;
+
     private Date activeFrom;
     private Date activeTo;
     private Date createdOn;
     //FK
     private User createdByUser;
+
+    @OneToMany(mappedBy = "user")
+    private Set<User_History> user_histories = new HashSet<User_History>();
+
+    public Set<User_History> getUser_histories() {
+        return user_histories;
+    }
+
+    public void setUser_histories(Set<User_History> user_histories) {
+        this.user_histories = user_histories;
+    }
 
     public Long getId() {
         return id;
@@ -28,12 +51,12 @@ public class User {
         this.id = id;
     }
 
-    public Customer getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public String getUsername() {

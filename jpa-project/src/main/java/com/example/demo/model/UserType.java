@@ -1,16 +1,29 @@
 package com.example.demo.model;
 
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "user_types")
 public class UserType {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @OneToOne(mappedBy = "userType")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     private String description;
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
     public void setId(Long id) {
         this.id = id;
