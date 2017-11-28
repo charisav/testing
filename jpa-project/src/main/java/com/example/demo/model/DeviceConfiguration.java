@@ -1,15 +1,19 @@
 package com.example.demo.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
 public class DeviceConfiguration {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
+	@OneToOne
+	@JoinColumn(name = "device_id", nullable = false)
 	private Device device;
 	private String description;
 	private String reportType;
@@ -18,7 +22,12 @@ public class DeviceConfiguration {
 	private Date reportToDate;
 	private String alarmInterval;
 	
-	public DeviceConfiguration() {}
+	@OneToMany(mappedBy = "deviceConfiguration")
+	@Column(nullable = false)
+	private Set<DeviceReportCalendar> deviceReportCalendars = new HashSet<DeviceReportCalendar>();
+
+	public DeviceConfiguration() {
+	}
 
 	public Long getId() {
 		return id;
@@ -83,6 +92,14 @@ public class DeviceConfiguration {
 	public void setAlarmInterval(String alarmInterval) {
 		this.alarmInterval = alarmInterval;
 	}
-	
+
+	public Set<DeviceReportCalendar> getDeviceReportCalendar() {
+		return deviceReportCalendars;
+	}
+
+	public void setDeviceReportCalendar(Set<DeviceReportCalendar> deviceReportCalendar) {
+		this.deviceReportCalendars = deviceReportCalendar;
+	}
+
 	
 }

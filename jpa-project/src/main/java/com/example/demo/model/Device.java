@@ -1,16 +1,21 @@
 package com.example.demo.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
+import javax.persistence.*;
+@Entity
+@Table(name = "device")
 public class Device {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
+	@ManyToOne
+	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
+
 	private String serialNumber;
 	private String name;
 	private String Status;
@@ -21,6 +26,23 @@ public class Device {
 	private Date createdOn;
 	private User createdByUser;
 
+	@OneToMany(mappedBy = "device")
+	@Column(nullable = false)
+	private Set<Device_Note> deviceNotes = new HashSet<Device_Note>();
+
+	@OneToMany(mappedBy = "device")
+	@Column(nullable = false)
+	private Set<Device_Metadata> deviceMetadata = new HashSet<Device_Metadata>();
+
+	@OneToOne(mappedBy = "device")
+	@Column(nullable = false)
+	private DeviceConfiguration deviceConfiguration;
+
+	@ManyToMany
+	@JoinTable(name = "device_deviceGroup", 
+			joinColumns = @JoinColumn(name = "deviceGroup_id", referencedColumnName = "deviceGroup_id", nullable = false), 
+			inverseJoinColumns = @JoinColumn(name = "device_id", referencedColumnName = "device_id", nullable = false))
+	private Set<DeviceGroup> deviceGroups = new HashSet<DeviceGroup>();
 	public Device() {
 	}
 
@@ -110,6 +132,38 @@ public class Device {
 
 	public void setCreatedByUser(User createdByUser) {
 		this.createdByUser = createdByUser;
+	}
+
+	public Set<Device_Note> getDeviceNotes() {
+		return deviceNotes;
+	}
+
+	public void setDeviceNotes(Set<Device_Note> deviceNotes) {
+		this.deviceNotes = deviceNotes;
+	}
+
+	public Set<Device_Metadata> getDeviceMetadata() {
+		return deviceMetadata;
+	}
+
+	public void setDeviceMetadata(Set<Device_Metadata> deviceMetadata) {
+		this.deviceMetadata = deviceMetadata;
+	}
+
+	public DeviceConfiguration getDeviceConfiguration() {
+		return deviceConfiguration;
+	}
+
+	public void setDeviceConfiguration(DeviceConfiguration deviceConfiguration) {
+		this.deviceConfiguration = deviceConfiguration;
+	}
+
+	public Set<DeviceGroup> getDeviceGroups() {
+		return deviceGroups;
+	}
+
+	public void setDeviceGroups(Set<DeviceGroup> deviceGroups) {
+		this.deviceGroups = deviceGroups;
 	}
 
 }

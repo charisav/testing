@@ -1,13 +1,15 @@
 package com.example.demo.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
 public class Device_Note {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	@ManyToOne
+	@JoinColumn(name = "device_id", nullable = false)
 	private Device device;
 	private String note;
 
@@ -21,6 +23,7 @@ public class Device_Note {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 
 	public Device getDevice() {
 		return device;

@@ -2,21 +2,25 @@ package com.example.demo.model;
 
 import java.util.Date;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
 public class DeviceReportCalendar {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	@ManyToOne
+	@JoinColumn(name = "deviceConfiguration_id", nullable = false)
 	private DeviceConfiguration deviceConfiguration;
+	
 	private Date fromDate;
 	private Date toDate;
 	private String actionType;
-	
-	public DeviceReportCalendar() {}
 
+	public DeviceReportCalendar() {
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -56,6 +60,5 @@ public class DeviceReportCalendar {
 	public void setActionType(String actionType) {
 		this.actionType = actionType;
 	}
-	
-	
+
 }

@@ -1,9 +1,11 @@
 package com.example.demo.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.*;
+
+@Entity
 public class DeviceGroup {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -11,6 +13,12 @@ public class DeviceGroup {
 	private String name;
 	private String description;
 
+	@ManyToMany
+	@JoinTable(name = "device_deviceGroup", 
+			joinColumns = @JoinColumn(name = "device_id", referencedColumnName = "device_id", nullable = false),
+			inverseJoinColumns = @JoinColumn(name = "deviceGroup_id", referencedColumnName = "deviceGroup_id", nullable = false))
+	private Set<Device> deviceGroups = new HashSet<Device>();
+	
 	public DeviceGroup() {
 	}
 

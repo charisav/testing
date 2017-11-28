@@ -1,7 +1,11 @@
 package com.example.demo.model;
 
-import javax.persistence.Id;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 public class Customer {
     @Id
@@ -13,6 +17,9 @@ public class Customer {
     private Date createdOn;
     //FK
     private User createdByUser;
+    
+    @OneToMany(mappedBy = "customer")
+    private Set<Device> devices = new HashSet<Device>();
 
     public Long getId() {
         return id;
