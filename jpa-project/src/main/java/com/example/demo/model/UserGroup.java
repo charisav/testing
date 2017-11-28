@@ -1,10 +1,14 @@
 package com.example.demo.model;
 
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "userGroups")
 public class UserGroup {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "userGroup_id")
     private Long id;
     private String name;
     private String description;

@@ -23,7 +23,7 @@ public class User {
     private String password;
 
     @OneToOne
-    @JoinColumn(name = "user_type_id", nullable = false)
+    @JoinColumn(name = "userType_id", nullable = false)
     private User userType;
 
     private Date activeFrom;
@@ -33,6 +33,7 @@ public class User {
     private User createdByUser;
 
     @OneToMany(mappedBy = "user")
+    @Column(nullable = false)
     private Set<User_History> user_histories = new HashSet<User_History>();
 
     public Set<User_History> getUser_histories() {

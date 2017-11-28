@@ -5,9 +5,11 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "deviceReportCalendar")
 public class DeviceReportCalendar {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "deviceReportCalendar_id")
 	private Long id;
 	
 	@ManyToOne

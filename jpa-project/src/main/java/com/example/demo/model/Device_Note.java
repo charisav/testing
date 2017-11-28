@@ -3,9 +3,11 @@ package com.example.demo.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "device_notes")
 public class Device_Note {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "device_note_id")
 	private Long id;
 	
 	@ManyToOne

@@ -7,14 +7,17 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "deviceConfiguration")
 public class DeviceConfiguration {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "deviceConfiguration_id")
 	private Long id;
 
 	@OneToOne
 	@JoinColumn(name = "device_id", nullable = false)
 	private Device device;
+	
 	private String description;
 	private String reportType;
 	private String reportInterval;

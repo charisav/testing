@@ -9,84 +9,87 @@ import javax.persistence.*;
 @Entity
 @Table(name = "customers")
 public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String name;
-    private Date activeFrom;
-    private Date activeTo;
-    private Long externalCustomerId;
-    private Date createdOn;
-    //FK
-    private User createdByUser;
-    
-    @OneToMany(mappedBy = "customer")
-    private Set<Device> devices = new HashSet<Device>();
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "customer_id")
+	private Long id;
+	private String name;
+	private Date activeFrom;
+	private Date activeTo;
+	private Long externalCustomerId;
+	private Date createdOn;
+	// FK
+	private User createdByUser;
 
-    @OneToMany(mappedBy = "customer")
-    private Set<User> users = new HashSet<User>();
+	@OneToMany(mappedBy = "customer")
+	@Column(nullable = false)
+	private Set<Device> devices = new HashSet<Device>();
 
-    public Set<User> getUsers() {
-        return users;
-    }
+	@OneToMany(mappedBy = "customer")
+	@Column(nullable = false)
+	private Set<User> users = new HashSet<User>();
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
+	public Set<User> getUsers() {
+		return users;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public Date getActiveFrom() {
-        return activeFrom;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setActiveFrom(Date activeFrom) {
-        this.activeFrom = activeFrom;
-    }
+	public Date getActiveFrom() {
+		return activeFrom;
+	}
 
-    public Date getActiveTo() {
-        return activeTo;
-    }
+	public void setActiveFrom(Date activeFrom) {
+		this.activeFrom = activeFrom;
+	}
 
-    public void setActiveTo(Date activeTo) {
-        this.activeTo = activeTo;
-    }
+	public Date getActiveTo() {
+		return activeTo;
+	}
 
-    public Long getExternalCustomerId() {
-        return externalCustomerId;
-    }
+	public void setActiveTo(Date activeTo) {
+		this.activeTo = activeTo;
+	}
 
-    public void setExternalCustomerId(Long externalCustomerId) {
-        this.externalCustomerId = externalCustomerId;
-    }
+	public Long getExternalCustomerId() {
+		return externalCustomerId;
+	}
 
-    public Date getCreatedOn() {
-        return createdOn;
-    }
+	public void setExternalCustomerId(Long externalCustomerId) {
+		this.externalCustomerId = externalCustomerId;
+	}
 
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
+	public Date getCreatedOn() {
+		return createdOn;
+	}
 
-    public User getCreatedByUser() {
-        return createdByUser;
-    }
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
 
-    public void setCreatedByUser(User createdByUser) {
-        this.createdByUser = createdByUser;
-    }
+	public User getCreatedByUser() {
+		return createdByUser;
+	}
+
+	public void setCreatedByUser(User createdByUser) {
+		this.createdByUser = createdByUser;
+	}
 }

@@ -8,9 +8,11 @@ public class UserType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "userType_id")
     private Long id;
 
     @OneToOne(mappedBy = "userType")
+    @Column(nullable = false)
     private User user;
 
     public User getUser() {

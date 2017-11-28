@@ -5,11 +5,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+
 @Entity
-@Table(name = "device")
+@Table(name = "devices")
 public class Device {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "device_id")
 	private Long id;
 
 	@ManyToOne
@@ -43,6 +45,7 @@ public class Device {
 			joinColumns = @JoinColumn(name = "deviceGroup_id", referencedColumnName = "deviceGroup_id", nullable = false), 
 			inverseJoinColumns = @JoinColumn(name = "device_id", referencedColumnName = "device_id", nullable = false))
 	private Set<DeviceGroup> deviceGroups = new HashSet<DeviceGroup>();
+
 	public Device() {
 	}
 
